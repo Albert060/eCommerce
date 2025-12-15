@@ -1,7 +1,7 @@
 import Navbar from "@/components/productos/navbar";
 
-export default function Productos() {
+export default function ProductosPage() {
     return (
-        <Navbar />
+        <><p>holaaaaa</p></>
     )
 }

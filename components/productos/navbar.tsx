@@ -81,29 +81,29 @@ export default function Navbar({
                                    menu = [
                                        { title: "Home", url: "#" },
                                        {
-                                           title: "Blocks",
+                                           title: "Women",
                                            url: "#",
                                            items: [
                                                {
-                                                   title: "UI Elements",
+                                                   title: "Zapatillas",
                                                    description: "Reusable UI components to build your app faster",
                                                    icon: <Boxes className="size-5 shrink-0" />,
                                                    url: "#",
                                                },
                                                {
-                                                   title: "Templates",
+                                                   title: "Ropa",
                                                    description: "Prebuilt layouts for dashboards and landing pages",
                                                    icon: <LayoutDashboard className="size-5 shrink-0" />,
                                                    url: "#",
                                                },
                                                {
-                                                   title: "Icons",
+                                                   title: "Accesorios",
                                                    description: "Beautiful lucide-react icons ready to use",
                                                    icon: <Sparkles className="size-5 shrink-0" />,
                                                    url: "#",
                                                },
                                                {
-                                                   title: "Themes",
+                                                   title: "Perfumes",
                                                    description: "Customizable design system with dark mode support",
                                                    icon: <Palette className="size-5 shrink-0" />,
                                                    url: "#",
@@ -111,29 +111,59 @@ export default function Navbar({
                                            ],
                                        },
                                        {
-                                           title: "Pages",
+                                           title: "Man",
                                            url: "#",
                                            items: [
                                                {
-                                                   title: "Documentation",
+                                                   title: "Zapatillas",
                                                    description: "Get started with guides, API references & examples",
                                                    icon: <Book className="size-5 shrink-0" />,
                                                    url: "#",
                                                },
                                                {
-                                                   title: "Community",
+                                                   title: "Ropa",
                                                    description: "Join our discussions and connect with other devs",
                                                    icon: <Users className="size-5 shrink-0" />,
                                                    url: "#",
                                                },
                                                {
-                                                   title: "Tutorials",
+                                                   title: "Accesorios",
                                                    description: "Step-by-step guides to learn Ruixen UI quickly",
                                                    icon: <GraduationCap className="size-5 shrink-0" />,
                                                    url: "#",
                                                },
                                                {
-                                                   title: "Changelog",
+                                                   title: "Perfumes",
+                                                   description: "See what's new and improved in every release",
+                                                   icon: <History className="size-5 shrink-0" />,
+                                                   url: "#",
+                                               },
+                                           ],
+                                       },
+                                       {
+                                           title: "Technology",
+                                           url: "#",
+                                           items: [
+                                               {
+                                                   title: "Moviles",
+                                                   description: "Get started with guides, API references & examples",
+                                                   icon: <Book className="size-5 shrink-0" />,
+                                                   url: "#",
+                                               },
+                                               {
+                                                   title: "Portalites",
+                                                   description: "Join our discussions and connect with other devs",
+                                                   icon: <Users className="size-5 shrink-0" />,
+                                                   url: "#",
+                                               },
+                                               {
+                                                   title: "Auriculares",
+                                                   description: "Step-by-step guides to learn Ruixen UI quickly",
+                                                   icon: <GraduationCap className="size-5 shrink-0" />,
+                                                   url: "#",
+                                               },
+                                               {
+                                                   title: "Pantallas",
                                                    description: "See what's new and improved in every release",
                                                    icon: <History className="size-5 shrink-0" />,
                                                    url: "#",
