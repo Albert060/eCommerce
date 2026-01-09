@@ -229,10 +229,10 @@ export default function Navbar({
 
                         {/* Auth Buttons */}
                         <Button asChild variant="outline" size="sm">
-                            <a href={auth.login.url}>{auth.login.text}</a>
+                            <Link href={auth.login.url}>{auth.login.text}</Link>
                         </Button>
                         <Button asChild size="sm">
-                            <a href={auth.signup.url}>{auth.signup.text}</a>
+                            <Link href={auth.signup.url}>{auth.signup.text}</Link>
                         </Button>
                     </div>
                 </nav>
@@ -240,9 +240,9 @@ export default function Navbar({
                 {/* Mobile Navbar */}
                 <div className="block lg:hidden">
                     <div className="flex items-center justify-between">
-                        <a href={logo.url} className="flex items-center gap-2">
-                            <img src={logo.src} className="w-8" alt={logo.alt} />
-                        </a>
+                        <Link href={logo.url} className="flex items-center gap-2">
+                            <Image src={logo.src} className="w-8" width={100} height={100} alt={logo.alt} />
+                        </Link>
                         <div className="flex items-center gap-2">
                             {/* Search button mobile */}
                             <Button
@@ -268,9 +268,9 @@ export default function Navbar({
                                 <SheetContent className="overflow-y-auto">
                                     <SheetHeader>
                                         <SheetTitle>
-                                            <a href={logo.url} className="flex items-center gap-2">
-                                                <img src={logo.src} className="w-8" alt={logo.alt} />
-                                            </a>
+                                            <Link href={logo.url} className="flex items-center gap-2">
+                                                <Image src={logo.src} className="w-8" alt={logo.alt} />
+                                            </Link>
                                         </SheetTitle>
                                     </SheetHeader>
                                     <div className="my-6 flex flex-col gap-6">
@@ -284,22 +284,22 @@ export default function Navbar({
                                         <div className="border-t border-gray-200 dark:border-gray-700 py-4">
                                             <div className="grid grid-cols-2 justify-start">
                                                 {mobileExtraLinks.map((link, idx) => (
-                                                    <a
+                                                    <Link
                                                         key={idx}
                                                         className="inline-flex h-10 items-center gap-2 whitespace-nowrap rounded-md px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-accent-foreground"
                                                         href={link.url}
                                                     >
                                                         {link.name}
-                                                    </a>
+                                                    </Link>
                                                 ))}
                                             </div>
                                         </div>
                                         <div className="flex flex-col gap-3">
                                             <Button asChild variant="outline">
-                                                <a href={auth.login.url}>{auth.login.text}</a>
+                                                <Link href={auth.login.url}>{auth.login.text}</Link>
                                             </Button>
                                             <Button asChild>
-                                                <a href={auth.signup.url}>{auth.signup.text}</a>
+                                                <Link href={auth.signup.url}>{auth.signup.text}</Link>
                                             </Button>
                                         </div>
                                     </div>
@@ -337,7 +337,7 @@ const renderMenuItem = (item: MenuItem) => {
                         <NavigationMenuLink className="!rounded-3xl">
                             {item.items.map((subItem) => (
                                 <li key={subItem.title}>
-                                    <a
+                                    <Link
                                         className="flex select-none gap-4 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted hover:text-accent-foreground"
                                         href={subItem.url}
                                     >
@@ -352,7 +352,7 @@ const renderMenuItem = (item: MenuItem) => {
                                                 </p>
                                             )}
                                         </div>
-                                    </a>
+                                    </Link>
                                 </li>
                             ))}
                         </NavigationMenuLink>
