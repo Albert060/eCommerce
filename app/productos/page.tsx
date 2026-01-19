@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
+import { useRouter } from 'next/navigation'
 
 export interface ServerResponse {
     message: CategoryParent[] | Product[]
@@ -18,6 +19,13 @@ export interface CategoryChildren {
     nombre: string
 }
 
+export interface ProductImage {
+    id_imagen: number
+    id_producto: number
+    url: string
+    orden: number
+}
+
 export interface Product {
     id_producto: string
     nombre: string
@@ -28,6 +36,7 @@ export interface Product {
     peso: string
     volumen: string
     activo: boolean
+    imagenes: ProductImage[]
 }
 
 export default function ProductosPage() {
@@ -37,8 +46,8 @@ export default function ProductosPage() {
     const [maxPrice, setMaxPrice] = useState<number>(1000);
     const [sortBy, setSortBy] = useState<string>('relevance');
     const [searchQuery, setSearchQuery] = useState<string>('');
-
     const [products, setProducts] = useState<Product[]>([]);
+    const router = useRouter();
 
     useEffect(() => {
         const getCategories = async () => {
@@ -85,6 +94,7 @@ export default function ProductosPage() {
 
     // Apply filters when any filter value changes
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/immutability
         applyFilters();
     }, [selectedCategories, minPrice, maxPrice, sortBy, searchQuery, products]);
 
@@ -286,7 +296,7 @@ export default function ProductosPage() {
                             <button
                                 type="button"
                                 onClick={clearAllFilters}
-                                className="text-xs text-blue-600 hover:underline"
+                                className="text-xs text-primary hover:underline"
                             >
                                 Limpiar filtros
                             </button>
@@ -355,7 +365,7 @@ export default function ProductosPage() {
                                             <input
                                                 type="checkbox"
                                                 id={`parent-${category.parent_id}`}
-                                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                                className="w-4 h-4 text-primary bg-gray-100 border-gray-300 rounded focus:ring-primary dark:focus:ring-primary dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                                                 checked={category.children.some(child => selectedCategories.has(child.id_categoria))}
                                                 onChange={() => handleParentCategoryChange(category)}
                                             />
@@ -372,7 +382,7 @@ export default function ProductosPage() {
                                                     <input
                                                         type="checkbox"
                                                         id={`child-${child.id_categoria}`}
-                                                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                                        className="w-4 h-4 text-primary bg-gray-100 border-gray-300 rounded focus:ring-primary dark:focus:ring-primary dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                                                         checked={selectedCategories.has(child.id_categoria)}
                                                         onChange={() => handleChildCategoryChange(child.id_categoria)}
                                                     />
@@ -411,13 +421,21 @@ export default function ProductosPage() {
                         {filteredProducts.length > 0 ? (
                             filteredProducts.map((product) => (
                                 <div key={product.id_producto} className="border rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
-                                    <div className="bg-gray-200 border-2 border-dashed rounded-xl w-full h-40 flex items-center justify-center text-gray-500">
-                                        Imagen
-                                    </div>
+                                    {product.imagenes && product.imagenes.length > 0 ? (
+                                        <img
+                                            src={product.imagenes[0].url}
+                                            alt={product.nombre}
+                                            className="w-full h-40 object-cover rounded-xl"
+                                        />
+                                    ) : (
+                                        <div className="bg-gray-200 border-2 border-dashed rounded-xl w-full h-40 flex items-center justify-center text-gray-500">
+                                            Imagen
+                                        </div>
+                                    )}
                                     <h3 className="font-semibold text-lg">{product.nombre}</h3>
                                     <p className="text-gray-600 text-sm mt-1 line-clamp-2">{product.descripcion}</p>
                                     <p className="font-bold text-lg mt-2">${product.precio_base}</p>
-                                    <button className="mt-3 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition-colors">
+                                    <button className="mt-3 w-full bg-primary text-white py-2 rounded hover:bg-primary/90 transition-colors" onClick={() => router.push(`/productos/${product.id_producto}`) }>
                                         Ver producto
                                     </button>
                                 </div>

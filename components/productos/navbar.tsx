@@ -198,11 +198,24 @@ export default function Navbar({
         <section className="py-4">
             <div className="container">
                 {/* Desktop Navbar */}
-                <nav className="hidden justify-between lg:flex">
-                    <div className="flex items-center gap-6">
+                <nav className="hidden items-center justify-between lg:flex">
+                    <div className="flex items-center gap-2">
+                        {/* Logo */}
                         <Link href={logo.url} className="flex items-center gap-2">
                             <Image width={100} height={100} src={logo.src} className="w-8" alt={logo.alt} />
                         </Link>
+
+                        {/* Auth Buttons - Left side */}
+                        <Button asChild variant="outline" size="sm" className="ml-4">
+                            <Link href={auth.login.url}>{auth.login.text}</Link>
+                        </Button>
+                        <Button asChild size="sm">
+                            <Link href={auth.signup.url}>{auth.signup.text}</Link>
+                        </Button>
+                    </div>
+
+                    {/* Centered Navigation Menu */}
+                    <div className="absolute left-1/2 transform -translate-x-1/2">
                         <div className="flex items-center">
                             <NavigationMenu className="[&_[data-radix-navigation-menu-viewport]]:rounded-3xl">
                                 <NavigationMenuList className="rounded-3xl">
@@ -225,14 +238,6 @@ export default function Navbar({
                         {/* Cart Button */}
                         <Button variant="ghost" size="icon">
                             <ShoppingCart className="size-4" />
-                        </Button>
-
-                        {/* Auth Buttons */}
-                        <Button asChild variant="outline" size="sm">
-                            <Link href={auth.login.url}>{auth.login.text}</Link>
-                        </Button>
-                        <Button asChild size="sm">
-                            <Link href={auth.signup.url}>{auth.signup.text}</Link>
                         </Button>
                     </div>
                 </nav>
@@ -269,7 +274,7 @@ export default function Navbar({
                                     <SheetHeader>
                                         <SheetTitle>
                                             <Link href={logo.url} className="flex items-center gap-2">
-                                                <Image src={logo.src} className="w-8" alt={logo.alt} />
+                                                <Image src={logo.src} className="w-8" alt={logo.alt} width={10} height={10}/>
                                             </Link>
                                         </SheetTitle>
                                     </SheetHeader>
