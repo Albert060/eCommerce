@@ -3,12 +3,14 @@ import { useParams } from 'next/navigation'
 import { useEffect, useState } from "react";
 import { Product, ProductImage, ServerResponse } from "@/app/productos/page";
 import Link from "next/link";
+import { useCart } from '@/lib/cart-context';
 
 export default function ProductDetail(){
     const { id } = useParams<{ id: string }>()
     const [product, setProduct] = useState<Product>()
     const [selectedImage, setSelectedImage] = useState<string | null>(null)
     const [loading, setLoading] = useState(true)
+    const { addToCart } = useCart();
 
     useEffect(()=>{
         const fetchProduct = async () => {
@@ -53,6 +55,12 @@ export default function ProductDetail(){
             </div>
         )
     }
+
+    const handleAddToCart = () => {
+        if (product) {
+            addToCart(product, 1); // Add 1 quantity by default
+        }
+    };
 
     return (
         <div className="min-h-screen bg-neutral-primary-soft py-8">
@@ -162,7 +170,10 @@ export default function ProductDetail(){
                                 </div>
 
                                 <div className="mt-8 flex flex-wrap gap-4">
-                                    <button className="flex-1 bg-primary text-white py-3 px-6 rounded-lg hover:bg-primary/90 transition-colors font-medium shadow-md">
+                                    <button
+                                        onClick={handleAddToCart}
+                                        className="flex-1 bg-primary text-white py-3 px-6 rounded-lg hover:bg-primary/90 transition-colors font-medium shadow-md"
+                                    >
                                         Añadir al carrito
                                     </button>
                                     <button className="flex-1 bg-white border border-primary text-primary py-3 px-6 rounded-lg hover:bg-primary/5 transition-colors font-medium">
