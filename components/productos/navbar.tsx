@@ -36,7 +36,8 @@ import {
 } from "@/components/ui/command";
 import Link from "next/link";
 import Image from "next/image";
-import { JSX } from "react";
+import { JSX, useEffect, useState } from "react";
+import { CategoryParent, ServerResponse } from "@/app/productos/page";
 
 interface MenuItem {
     title: string;
@@ -79,9 +80,9 @@ export default function Navbar({
                                    },
 
                                    menu = [
-                                       { title: "Home", url: "#" },
+                                       { title: "Home", url: "/" },
                                        {
-                                           title: "Women",
+                                           title: "",
                                            url: "#",
                                            items: [
                                                {
@@ -194,6 +195,16 @@ export default function Navbar({
                                }: NavbarProps) {
     const [openSearch, setOpenSearch] = React.useState(false);
 
+    const [categories, setCategories] = useState<CategoryParent[]>([]);
+    useEffect(() => {
+        const getCategories = async () => {
+            const response = await fetch("/api/categorias");
+            const data = (await response.json()) as ServerResponse;
+            setCategories(data.message as CategoryParent[]);
+        }
+
+        getCategories()
+    },[])
     return (
         <section className="py-4">
             <div className="container">
@@ -217,9 +228,9 @@ export default function Navbar({
                     {/* Centered Navigation Menu */}
                     <div className="absolute left-1/2 transform -translate-x-1/2">
                         <div className="flex items-center">
-                            <NavigationMenu className="[&_[data-radix-navigation-menu-viewport]]:rounded-3xl">
+                            <NavigationMenu className="**:data-radix-navigation-menu-viewport:rounded-3xl">
                                 <NavigationMenuList className="rounded-3xl">
-                                    {menu.map((item) => renderMenuItem(item))}
+                                    {categories.map((item) => renderMenuItem(item))}
                                 </NavigationMenuList>
                             </NavigationMenu>
                         </div>
@@ -332,30 +343,25 @@ export default function Navbar({
     );
 }
 
-const renderMenuItem = (item: MenuItem) => {
-    if (item.items) {
+const renderMenuItem = (item: CategoryParent) => {
+    if (item.children) {
         return (
-            <NavigationMenuItem key={item.title} className="text-muted-foreground !rounded-3xl">
-                <NavigationMenuTrigger className="!rounded-3xl">{item.title}</NavigationMenuTrigger>
-                <NavigationMenuContent className="!rounded-3xl">
+            <NavigationMenuItem key={item.parent_nombre} className="text-muted-foreground rounded-3xl!">
+                <NavigationMenuTrigger className="rounded-3xl!">{item.parent_nombre}</NavigationMenuTrigger>
+                <NavigationMenuContent className="rounded-3xl!">
                     <ul className="w-80 p-3">
-                        <NavigationMenuLink className="!rounded-3xl">
-                            {item.items.map((subItem) => (
-                                <li key={subItem.title}>
+                        <NavigationMenuLink className="rounded-3xl!">
+                            {item.children.map((subItem) => (
+                                <li key={subItem.nombre}>
                                     <Link
                                         className="flex select-none gap-4 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted hover:text-accent-foreground"
-                                        href={subItem.url}
+                                        href={`/productos?categorias=${subItem.id_categoria}`}
                                     >
-                                        {subItem.icon}
+
                                         <div>
                                             <div className="text-sm font-semibold">
-                                                {subItem.title}
+                                                {subItem.nombre}
                                             </div>
-                                            {subItem.description && (
-                                                <p className="text-sm leading-snug text-muted-foreground">
-                                                    {subItem.description}
-                                                </p>
-                                            )}
                                         </div>
                                     </Link>
                                 </li>
@@ -369,11 +375,11 @@ const renderMenuItem = (item: MenuItem) => {
 
     return (
         <a
-            key={item.title}
+            key={item.parent_nombre}
             className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-accent-foreground"
-            href={item.url}
+            href={`/productos?categorias=${item.parent_id}`}
         >
-            {item.title}
+            {item.parent_nombre}
         </a>
     );
 };
