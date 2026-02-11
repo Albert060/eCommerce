@@ -8,8 +8,8 @@ export default function CarritoPage() {
   const router = useRouter();
 
   const handleCheckout = () => {
-    // Implement checkout logic here
-    alert('Funcionalidad de checkout aún no implementada');
+    // Implement checkout-login logic here
+    router.push("/productos/checkout-login");
   };
 
   if (state.items.length === 0) {
